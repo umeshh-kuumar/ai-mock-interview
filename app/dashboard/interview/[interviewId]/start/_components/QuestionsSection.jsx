@@ -19,6 +19,7 @@ function QuestionsSection({ mockInterviewQuestion, activeQuestionIndex }) {
           {mockInterviewQuestion &&
             mockInterviewQuestion.map((question, index) => (
               <h2
+                key={index}
                 className={`p-2  rounded-full 
                 text-xs md:text-sm text-center cursor-pointer
                 ${
@@ -47,7 +48,7 @@ function QuestionsSection({ mockInterviewQuestion, activeQuestionIndex }) {
             <strong>Note:</strong>
           </h2>
           <h2 className="text-sm text-primary my-2">
-            {process.env.NEXT_PUBLIC_QUESTION_NOTE}
+          Click on text-to-speech icon and record your answer. We'll save your answer and show you the AI-generated answer for comparison.
           </h2>
         </div>
       </div>

@@ -16,6 +16,7 @@
     "@clerk/nextjs": "^6.36.10",
     "@clerk/shared": "^3.43.2",
     "@clerk/types": "^4.101.13",
+    "@google/genai": "^1.38.0",
     "@google/generative-ai": "^0.21.0",
     "@neondatabase/serverless": "^0.10.1",
     "@radix-ui/react-collapsible": "^1.1.1",

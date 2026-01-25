@@ -47,7 +47,17 @@ function AddNewInterview() {
 
         const result = await chatSession.sendMessage(InputPrompt);
 
-        const MockJsonResp = (result.response.text()).replace('```json','').replace('```','');
+        let MockJsonResp = result.response.text();
+        // Remove markdown code blocks
+        MockJsonResp = MockJsonResp.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+        // Extract JSON object if there's text before/after it
+        const jsonMatch = MockJsonResp.match(/\[\s*\{[\s\S]*\}\s*\]/);
+        if (jsonMatch) {
+          MockJsonResp = jsonMatch[0];
+        }
+        // Trim whitespace
+        MockJsonResp = MockJsonResp.trim();
+        
         console.log(JSON.parse(MockJsonResp));
         setJsonResponse(MockJsonResp);
 
@@ -89,39 +99,36 @@ function AddNewInterview() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl">Tell us more  about Job you are interviewing</DialogTitle>
-            <DialogDescription>
-              <form onSubmit={onSubmit}>
-                <div>
-                  {/* Replace <h2> inside <p> with <div> or <span> */}
-                  <div>Add Details about your job position/role, job description and years of experiance</div>
-                  <div className="mt-7 my-3">
-                    <label>Job Role/Job Position</label>
-                    <Input placeholder="Ex. Full Stack Developer" required
-                    onChange={(event)=>setJobPosition(event.target.value)}/>
-                  </div>
-                  <div className="my-3">
-                    <label>Job Description/Tech Stack (In Short)</label>
-                    <Textarea placeholder="Ex. React, NodeJs, MySql, Java" required
-                    onChange={(event)=>setJobDesc(event.target.value)}/>
-                  </div>
-                  <div className="my-3">
-                    <label>No of Year Experince</label>
-                    <Input placeholder="Ex.5" type="number" max="50" required
-                    onChange={(event)=>setJobExperience(event.target.value)}/>
-                  </div>
-                </div>
-                <div className="flex gap-5 justify-end">
-                  <Button type="button" variant="ghost" onClick={()=>setOpenDialog(false)}>Cancel</Button>
-                  <Button type="submit" disabled={loading}>
-                    {loading?
-                    <>
-                    <LoaderCircle className="animate-spin"/>Generating from AI</>:'Start Interview'
-                  }
-                    </Button>
-                </div>
-                </form>
-            </DialogDescription>
           </DialogHeader>
+          <form onSubmit={onSubmit}>
+            <div className="space-y-4">
+              <div>Add Details about your job position/role, job description and years of experiance</div>
+              <div className="mt-7 my-3">
+                <label>Job Role/Job Position</label>
+                <Input placeholder="Ex. Full Stack Developer" required
+                onChange={(event)=>setJobPosition(event.target.value)}/>
+              </div>
+              <div className="my-3">
+                <label>Job Description/Tech Stack (In Short)</label>
+                <Textarea placeholder="Ex. React, NodeJs, MySql, Java" required
+                onChange={(event)=>setJobDesc(event.target.value)}/>
+              </div>
+              <div className="my-3">
+                <label>No of Year Experiance</label>
+                <Input placeholder="Ex.5" type="number" max="50" required
+                onChange={(event)=>setJobExperience(event.target.value)}/>
+              </div>
+            </div>
+            <div className="flex gap-5 justify-end mt-6">
+              <Button type="button" variant="ghost" onClick={()=>setOpenDialog(false)}>Cancel</Button>
+              <Button type="submit" disabled={loading}>
+                {loading?
+                <>
+                <LoaderCircle className="animate-spin"/>Generating from AI</>:'Start Interview'
+              }
+                </Button>
+            </div>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

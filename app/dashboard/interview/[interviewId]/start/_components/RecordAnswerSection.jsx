@@ -107,6 +107,7 @@ function RecordAnswerSection({
           src={"/webcam.png"}
           width={200}
           height={200}
+          alt="Webcam icon"
           className="absolute"
         />
         <Webcam

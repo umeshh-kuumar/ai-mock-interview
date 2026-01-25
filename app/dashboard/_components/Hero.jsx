@@ -12,8 +12,8 @@ function Hero() {
         data-nimg="1"
         className="absolute z-[-10] w-full"
         style={{ color: "transparent" }}
-        src="/grid.svg"
         alt="Decorative grid background"
+        src="/grid.svg"
       />
 
       <Header />
