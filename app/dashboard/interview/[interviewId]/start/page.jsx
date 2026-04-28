@@ -1,8 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { db } from '/utils/db';
-import { MockInterview } from '/utils/schema';
-import { eq } from 'drizzle-orm';
+import { getInterviewByMockId } from '/app/actions/interviewActions';
 import QuestionsSection from './_components/QuestionsSection';
 import RecordAnswerSection from './_components/RecordAnswerSection';
 import { Button } from "/components/ui/button";
@@ -24,19 +22,19 @@ function StartInterview({params}) {
   },[])
 
   const GetInterviewDetails = async()=>{
-    const result=await db.select().from(MockInterview)
-    .where(eq(MockInterview.mockId,params.interviewId));
-  
-
-    const jsonMockResp = JSON.parse(result[0].jsonMockResp)
-    console.log(jsonMockResp)
-    setMockInterviewQuestion(jsonMockResp);
-    setInterviewData(result[0]);
+    const response = await getInterviewByMockId(params.interviewId);
+    
+    if(response.success) {
+      const resultData = response.data;
+      const jsonMockResp = JSON.parse(resultData.jsonMockResp)
+      setMockInterviewQuestion(jsonMockResp);
+      setInterviewData(resultData);
+    }
   }
 
   return (
-    <div>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+    <div className="space-y-6 py-4">
+      <div className='grid grid-cols-1 gap-10 md:grid-cols-2'>
         {/* {Questions} */}
         <QuestionsSection 
         mockInterviewQuestion={mockInterviewQuestion}
@@ -50,14 +48,14 @@ function StartInterview({params}) {
       interviewData={interviewData}
       />
       </div>
-      <div className='flex justify-end gap-6'>
+      <div className='flex flex-wrap justify-end gap-3'>
         {activeQuestionIndex>0&&
-        <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
+        <Button variant="outline" onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
         {activeQuestionIndex!=mockInterviewQuestion?.length-1&&
         <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>}
         {activeQuestionIndex==mockInterviewQuestion?.length-1&&
         <Link href={'/dashboard/interview/'+interviewData?.mockId+'/feedback'}>
-        <Button>End Interview</Button>
+        <Button className="bg-emerald-600 text-white hover:bg-emerald-700">End Interview</Button>
         </Link>}
         
 

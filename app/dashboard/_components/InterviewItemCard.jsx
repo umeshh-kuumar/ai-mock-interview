@@ -14,15 +14,17 @@ function InterviewItemCard({interview}) {
     }
 
   return (
-    <div className='border shadow-sm rounded-lg p-3'>
-        <h2 className='font-bold text-primary'>{interview?.jobPosition}</h2>
-        <h2 className='text-sm text-gray-600'>{interview?.jobExperience} Years of Experience</h2>
-        <h2 className='text-xs text-gray-500'>Created At : {interview?.createdAt}</h2>
-        <div className='flex justify-between mt-2 gap-5'>
-            <Button size='sm' variant='outline' className="w-full"
+    <div className='glass animate-fade-in rounded-2xl p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl'>
+        <h2 className='mb-1 text-xl font-bold text-primary'>{interview?.jobPosition}</h2>
+        <h2 className='text-sm font-medium text-muted-foreground'>
+          {interview?.jobExperience} years experience
+        </h2>
+        <h2 className='mt-2 text-xs text-muted-foreground'>Created: {interview?.createdAt}</h2>
+        <div className='mt-6 flex justify-between gap-4'>
+            <Button size='sm' variant='outline' className="w-full rounded-xl"
             onClick={onFeedbackPress}
             >Feedback</Button>
-            <Button size='sm' className='w-full'
+            <Button size='sm' className='w-full rounded-xl shadow-md shadow-primary/20'
             onClick={onStart}
             >Start</Button>
 

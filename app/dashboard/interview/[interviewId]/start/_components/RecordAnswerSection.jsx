@@ -6,11 +6,8 @@ import { Button } from "/components/ui/button";
 import useSpeechToText from "react-hook-speech-to-text";
 import { Mic, StopCircle } from "lucide-react";
 import { toast } from "sonner";
-import { chatSession } from "/utils/GeminiAIModel";
-import { db } from "/utils/db";
-import { UserAnswer } from "/utils/schema";
 import { useUser } from "@clerk/nextjs";
-import moment from "moment";
+import { saveUserAnswer } from "/app/actions/interviewActions";
 
 
 function RecordAnswerSection({
@@ -61,40 +58,24 @@ function RecordAnswerSection({
   const UpdateUserAnswer = async () => {
     console.log(userAnswer)
     setLoading(true);
-    const feedbackPrompt =
-      "Questions" +
-      mockInterviewQuestion[activeQuestionIndex]?.Question +
-      ", User Answer:" +
-      userAnswer +
-      ",Depends on question and user answer for given interview question" +
-      " please give us rating for answer and feedback as area of improvement if any" +
-      "in just 3 to 5 Lines to improve it in JSON format with rating field and feedback and feedback field";
 
-    const result = await chatSession.sendMessage(feedbackPrompt);
+    const email = user?.primaryEmailAddress?.emailAddress;
+    const response = await saveUserAnswer(
+      interviewData?.mockId,
+      mockInterviewQuestion[activeQuestionIndex]?.Question,
+      mockInterviewQuestion[activeQuestionIndex]?.Answer,
+      userAnswer,
+      email
+    );
 
-    const mockJsonResp = result.response
-      .text()
-      .replace("```json", "")
-      .replace("```", "");
-    console.log(mockJsonResp);
-    const JsonFeedbackResp = JSON.parse(mockJsonResp);
-
-    const resp = await db.insert(UserAnswer).values({
-      mockIdRef: interviewData?.mockId,
-      question: mockInterviewQuestion[activeQuestionIndex]?.Question,
-      correctAns: mockInterviewQuestion[activeQuestionIndex]?.Answer,
-      userAns: userAnswer,
-      feedback: JsonFeedbackResp?.feedback,
-      rating: JsonFeedbackResp?.rating,
-      userEmail: user?.primaryEmailAddress?.emailAddress,
-      createdAt:moment().format("DD-MM-YYYY")
-    })
-
-    if (resp) {
+    if (response.success) {
       toast("User Answer Record Sucessfully");
       setUserAnswer("");
       setResults([]);
+    } else {
+      toast("Error while saving answer");
     }
+    
     setResults([]);
     setLoading(false);
   };

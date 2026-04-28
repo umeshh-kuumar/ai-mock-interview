@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { db } from "/utils/db";
-import { eq } from "drizzle-orm";
-import { UserAnswer } from "/utils/schema";
+import { getFeedbackByMockId } from '/app/actions/interviewActions';
 import {
   Collapsible,
   CollapsibleContent,
@@ -22,66 +20,68 @@ function Feedback({ params }) {
   }, []);
 
   const GetFeedback = async () => {
-    const result = await db
-      .select()
-      .from(UserAnswer)
-      .where(eq(UserAnswer.mockIdRef, params.interviewId))
-      .orderBy(UserAnswer.id);
+    const response = await getFeedbackByMockId(params.interviewId);
 
-    console.log(result);
-    setFeedbackList(result);
+    if(response.success) {
+      const result = response.data;
+      setFeedbackList(result);
 
-    // Calculate overall rating
-    if (result.length > 0) {
-      const totalRating = result.reduce(
-        (sum, item) => sum + parseFloat(item.rating),
-        0
-      );
-      const averageRating = (totalRating / result.length).toFixed(1);
-      setOverallRating(averageRating);
+      // Calculate overall rating
+      if (result.length > 0) {
+        const totalRating = result.reduce(
+          (sum, item) => sum + parseFloat(item.rating),
+          0
+        );
+        const averageRating = (totalRating / result.length).toFixed(1);
+        setOverallRating(averageRating);
+      } else {
+        setOverallRating("N/A"); // No feedback available
+      }
     } else {
-      setOverallRating("N/A"); // No feedback available
+      setOverallRating("N/A");
     }
   };
 
   return (
-    <div className="p-10">
-      <h2 className="text-3xl font-bold text-green-500">Congratulation!</h2>
-      <h2 className="font-bold text-2xl">Here is your interview feedback</h2>
+    <div className="space-y-4 p-6 md:p-10">
+      <h2 className="text-3xl font-bold text-emerald-600">Congratulations!</h2>
+      <h2 className="text-2xl font-bold">Here is your interview feedback</h2>
 
       {feedbackList?.length==0?
-    <h2 className="font-bold text-xl text-gray-500">No interview Feedback Recorded</h2>  
+    <h2 className="rounded-xl border border-dashed border-primary/40 bg-white/50 p-4 text-base text-muted-foreground dark:border-primary/30 dark:bg-slate-900/40">
+      No interview feedback recorded yet.
+    </h2>  
     :
     <>
-      <h2 className="text-primary text-lg my-3">
+      <h2 className="my-3 text-lg text-primary">
         Your overall interview rating:{" "}
         <strong>{overallRating || "Loading..."}</strong>
       </h2>
-      <h2 className="text-sm text-gery-500">
+      <h2 className="text-sm text-muted-foreground">
         Find below interview questions with correct answer, and feedback for
         improvement
       </h2>
 
       {feedbackList &&feedbackList.map((item, index) => (
-          <Collapsible key={index} className="mt-7">
-            <CollapsibleTrigger className="p-2 bg-secondary rounded-lg flex justify-between my-2 text-left gap-7 w-full">
+          <Collapsible key={index} className="mt-5">
+            <CollapsibleTrigger className="my-2 flex w-full justify-between gap-7 rounded-lg bg-secondary p-3 text-left">
               {item.question} <ChevronsUpDown className="h-5 w-5" />
             </CollapsibleTrigger>
             <CollapsibleContent>
               <div className="flex flex-col gap-2">
-                <h2 className="text-red-500 p-2 border rounded-lg">
+                <h2 className="rounded-lg border border-red-300/60 bg-red-50/70 p-2 text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300">
                   <strong>Rating : </strong>
                   {item.rating}
                 </h2>
-                <h2 className="p-2 border rounded-lg bg-red-50 text-sm text-red-900">
+                <h2 className="rounded-lg border border-red-300/60 bg-red-50/70 p-2 text-sm text-red-900 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200">
                   <strong>Your Answer : </strong>
                   {item.userAns}
                 </h2>
-                <h2 className="p-2 border rounded-lg bg-green-50 text-sm text-green-900">
+                <h2 className="rounded-lg border border-emerald-300/60 bg-emerald-50/70 p-2 text-sm text-emerald-900 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200">
                   <strong>Correct Answer : </strong>
                   {item.correctAns}
                 </h2>
-                <h2 className="p-2 border rounded-lg bg-blue-50 text-sm text-primary">
+                <h2 className="rounded-lg border border-sky-300/60 bg-sky-50/70 p-2 text-sm text-sky-900 dark:border-sky-900 dark:bg-sky-950/40 dark:text-sky-200">
                   <strong>Feedback : </strong>
                   {item.feedback}
                 </h2>
@@ -91,7 +91,7 @@ function Feedback({ params }) {
         ))}
 
         </>}
-      <Button onClick={() => router.replace("/dashboard")}>Go Home</Button>
+      <Button className="mt-2 rounded-xl" onClick={() => router.replace("/dashboard")}>Go Home</Button>
     </div>
   )
 }

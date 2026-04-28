@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import Link from "next/link";
+import { ArrowRight, Bot, PencilLine, PlayCircle, Share2 } from "lucide-react";
 import Header from "./Header";
 
 function Hero() {
@@ -17,19 +19,19 @@ function Hero() {
       />
 
       <Header />
-      <section className="z-50">
-        <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-          <h1 className="xl:mt-36 lg:mt-28 md:mt-24 sm:mt-20 mt-16 mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <section className="z-50 animate-fade-in">
+        <div className="mt-10 mx-auto max-w-screen-xl rounded-3xl border border-white/20 py-8 px-4 text-center shadow-2xl glass dark:border-slate-800 dark:glass-dark lg:py-16 lg:px-12">
+          <h1 className="mb-4 animate-slide-up text-4xl font-extrabold leading-none tracking-tight text-foreground md:text-5xl lg:text-6xl" style={{ animationDelay: '0.1s' }}>
             Your Personal AI Interview Coach
           </h1>
-          <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+          <p className="mb-8 animate-slide-up text-lg font-normal text-muted-foreground lg:text-xl sm:px-16 xl:px-48" style={{ animationDelay: '0.2s' }}>
             Double your chances of landing that job offer with our AI-powered
             interview prep
           </p>
-          <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
             <a
               href="/sign-in"
-              className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary hover:bg-primary focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+              className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-xl bg-primary hover:bg-primary/90 hover:scale-105 transition-all shadow-lg shadow-primary/30"
             >
               Get Started
               <svg
@@ -45,78 +47,58 @@ function Hero() {
                 ></path>
               </svg>
             </a>
-            <a
-              href="https://youtu.be"
-              className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            >
-              <svg
-                className="mr-2 -ml-1 w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-              </svg>
+            <a href="https://youtu.be" className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/70 py-3 px-5 text-base font-medium text-foreground shadow-sm transition-all hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:hover:bg-slate-900">
+              <PlayCircle className="mr-2 -ml-1 h-5 w-5" />
               Watch video
             </a>
           </div>
         </div>
       </section>
-      <section className="py-8 bg-white z-50 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-        <h2 className="font-bold text-3xl">How it Works?</h2>
-        <h2 className="text-md text-gray-500">
+      <section className="z-50 mx-auto mt-8 max-w-screen-xl rounded-3xl border border-white/20 bg-white/80 px-4 py-8 text-center shadow-xl backdrop-blur dark:border-slate-800 dark:bg-slate-950/70 lg:px-12 lg:py-16">
+        <h2 className="text-3xl font-bold text-foreground">How it Works?</h2>
+        <h2 className="text-md text-muted-foreground">
           Give mock interviews in just 3 simple steps
         </h2>
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           <Card
-            icon="lucide-atom"
-            title="Write prompt for your form"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo possimus adipisci distinctio alias voluptatum blanditiis laudantium."
+            icon={Bot}
+            title="Set your role context"
+            description="Tell MockMate your job role, tech stack, and experience level for personalized interview questions."
           />
           <Card
-            icon="lucide-square-pen"
-            title="Edit Your Form"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo possimus adipisci distinctio alias voluptatum blanditiis laudantium."
+            icon={PencilLine}
+            title="Practice with AI"
+            description="Answer questions by voice and simulate a real interview environment with timed progression."
           />
           <Card
-            icon="lucide-share2"
-            title="Share & Start Accepting Responses"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo possimus adipisci distinctio alias voluptatum blanditiis laudantium."
+            icon={Share2}
+            title="Review feedback"
+            description="Get question-wise ratings, ideal answers, and improvement tips to sharpen your performance."
           />
         </div>
         <div className="mt-12 text-center">
-          <a
+          <Link
             href="/sign-in"
-            className="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-3 text-sm font-medium text-white transition hover:bg-primary/90 focus:outline-none focus:ring focus:ring-primary/30"
           >
             Get Started Today
-          </a>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
     </div>
   );
 }
 
-function Card({ icon, title, description }) {
+function Card({ icon: Icon, title, description }) {
   return (
-    <a
-      className="block rounded-xl border bg-white border-gray-200 p-8 shadow-xl transition hover:border-pink-500/10 hover:shadow-pink-500/10"
-      href="#"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className={`lucide ${icon} h-8 w-8`}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        {/* SVG content specific to the icon */}
-      </svg>
-      <h2 className="mt-4 text-xl font-bold text-black">{title}</h2>
-      <p className="mt-1 text-sm text-gray-600">{description}</p>
-    </a>
+    <div className="block rounded-2xl border border-white/30 bg-white/70 p-8 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-primary/20 dark:border-slate-800 dark:bg-slate-900/70">
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 shadow-sm">
+        <Icon className="h-8 w-8 text-primary" />
+      </div>
+      <h2 className="mt-4 text-xl font-bold text-foreground">{title}</h2>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
+    </div>
   );
 }
 

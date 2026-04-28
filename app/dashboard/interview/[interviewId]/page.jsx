@@ -1,7 +1,5 @@
 "use client"
-import { db } from '/utils/db';
-import { MockInterview } from '/utils/schema';
-import { eq } from 'drizzle-orm';
+import { getInterviewByMockId } from '/app/actions/interviewActions';
 import { Lightbulb, WebcamIcon } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import Webcam from "react-webcam";
@@ -11,40 +9,39 @@ import Link from 'next/link';
 
 function Interview ({params}) {
     
-    const [interviewData,setInterviewData] = useState(true);
+    const [interviewData,setInterviewData] = useState(null);
     const [webCamEnabled,setWebCamEnabled]=useState(false);
 
     useEffect(()=>{
-        console.log(params.interviewId)
         GetInterviewDetails();
     },[])
 
 
     const GetInterviewDetails = async()=>{
-      const result=await db.select().from(MockInterview)
-      .where(eq(MockInterview.mockId,params.interviewId));
-    
-        setInterviewData(result[0]);
+      const response = await getInterviewByMockId(params.interviewId);
+      if(response.success) {
+        setInterviewData(response.data);
+      }
     }
 
   return (
-    <div className='my-10 '>
-      <h2 className='font-bold text-2xl'>Let's Get Started</h2>
+    <div className='my-10 space-y-6'>
+      <h2 className='text-2xl font-bold md:text-3xl'>Let&apos;s Get Started</h2>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+      <div className='grid grid-cols-1 gap-10 md:grid-cols-2'>
       
 
-      <div className='flex flex-col my-5 gap-5 p-5 rounded-lg border'>
+      <div className='my-5 flex flex-col gap-5 rounded-2xl border border-white/30 bg-white/50 p-5 shadow-sm dark:bg-slate-900/30'>
         
-      <div className='flex flex-col p-5 gap-5 rounded-lg border'>
-        <h2 className='text-lg'><strong>Job Role/Job Position : </strong>{interviewData.jobPosition}</h2>
-        <h2 className='text-lg'><strong>Job Description/Tech Stack : </strong>{interviewData.jobDesc}</h2>
-        <h2 className='text-lg'><strong>Years of Experiance : </strong>{interviewData.jobExperience}</h2>
+      <div className='flex flex-col gap-4 rounded-xl border border-white/40 p-5'>
+        <h2 className='text-lg'><strong>Job Role / Position:</strong> {interviewData?.jobPosition}</h2>
+        <h2 className='text-lg'><strong>Job Description / Tech Stack:</strong> {interviewData?.jobDesc}</h2>
+        <h2 className='text-lg'><strong>Years of Experience:</strong> {interviewData?.jobExperience}</h2>
       </div>
 
-        <div className='p-5 border rounded-lg border-yellow-300 bg-yellow-100'>
-          <h2 className='flex gap-2 items-center text-yellow-500'><Lightbulb/><strong>Information</strong></h2>
-          <h2 className='mt-5 text-yellow-400'>{process.env.NEXT_PUBLIC_INFORMATION}
+        <div className='rounded-xl border border-yellow-300 bg-yellow-50 p-5'>
+          <h2 className='flex items-center gap-2 text-yellow-700'><Lightbulb/><strong>Quick Tips</strong></h2>
+          <h2 className='mt-3 text-sm text-yellow-800'>{process.env.NEXT_PUBLIC_INFORMATION}
           </h2>
         </div>
       </div>
@@ -61,7 +58,7 @@ function Interview ({params}) {
       />
       :
       <>
-      <WebcamIcon className='h-72 w-full my-7 p-20 bg-secondary rounded-lg border'/>
+      <WebcamIcon className='my-7 h-72 w-full rounded-xl border bg-secondary p-20'/>
       <Button variant="ghost" className="w-full" onClick={()=>setWebCamEnabled(true)}>Enable Web Cam and Microphone</Button>
       </>
       }
@@ -69,10 +66,10 @@ function Interview ({params}) {
       </div>
 
 
-      <div className='flex justify-end items-end'>
+      <div className='flex items-end justify-end'>
         
         <Link href={'/dashboard/interview/'+params.interviewId+'/start'}>
-        <Button className="">Start Interview</Button>
+        <Button className="rounded-xl px-8">Start Interview</Button>
         </Link>
       </div>
       
