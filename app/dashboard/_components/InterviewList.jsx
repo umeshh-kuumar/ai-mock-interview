@@ -1,14 +1,13 @@
 'use client'
+
 import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from 'react'
 import InterviewItemCard from './InterviewItemCard';
-import { getInterviewsByUser } from '/app/actions/interviewActions';
-
-
+import { getInterviewsByUser } from "@/app/actions/interviewActions";
 
 function InterviewList() {
     const {user} = useUser();
-    const [interviewList,setInterviewList] = useState([]);
+    const [interviewList, setInterviewList] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
@@ -31,31 +30,34 @@ function InterviewList() {
         }
         setLoading(false);
     }
+
   return (
     <div>
-        <div className="mb-4 flex items-end justify-between">
-          <h2 className='text-xl font-semibold md:text-2xl'>Previous Mock Interviews</h2>
-          <span className="text-sm text-muted-foreground">
-            {interviewList?.length || 0} total
-          </span>
+        <div className="flex items-center gap-3 mb-8">
+            <h2 className='font-bold text-2xl text-zinc-100 font-sora'>Previous Sessions</h2>
+            <div className="h-px flex-1 bg-white/[0.06]" />
         </div>
-        {loading && (
-          <div className="rounded-2xl border border-white/30 bg-white/50 p-6 text-sm text-muted-foreground dark:border-slate-800 dark:bg-slate-900/40">
-            Loading your interviews...
-          </div>
+
+        {loading ? (
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+                {[1,2,3].map((i) => (
+                    <div key={i} className='h-[160px] rounded-[24px] bg-white/5 animate-pulse border border-white/5' />
+                ))}
+            </div>
+        ) : interviewList?.length > 0 ? (
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+                {interviewList.map((interview, index)=>(
+                    <InterviewItemCard 
+                        interview={interview}
+                        key={index}
+                    />
+                ))}
+            </div>
+        ) : (
+            <div className="glass rounded-[32px] p-12 text-center border-white/5 bg-white/[0.02]">
+                <p className="text-zinc-500 font-dm italic">No interview sessions found. Start a new one above.</p>
+            </div>
         )}
-        {!loading && interviewList?.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-primary/40 bg-white/50 p-6 text-sm text-muted-foreground dark:border-primary/30 dark:bg-slate-900/40">
-            No interviews yet. Create your first mock interview to get started.
-          </div>
-        )}
-        <div className='my-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
-          {interviewList&&interviewList.map((interview,index)=>(
-            <InterviewItemCard 
-            interview={interview}
-            key={index}/>
-          ))}
-        </div>
     </div>
   )
 }

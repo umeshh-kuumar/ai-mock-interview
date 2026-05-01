@@ -3,7 +3,8 @@ import { UserButton, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import ThemeToggle from '/components/theme-toggle'
+import ThemeToggle from '@/components/theme-toggle'
+import { Bot } from 'lucide-react'
 
 function Header() {
   const path = usePathname()
@@ -18,29 +19,25 @@ function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/20 bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/70">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
+    <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/85 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/dashboard" className="flex items-center gap-2">
-          <Image
-            src="/l.svg"
-            width={40}
-            height={40}
-            alt="MockMate logo"
-            className="h-auto w-9"
-          />
-          <h2 className="text-xl font-bold tracking-tight md:text-2xl">MOCKMATE</h2>
+          <div className="w-8 h-8 rounded-[10px] flex items-center justify-center" style={{ background: "linear-gradient(135deg,#a78bfa,#7c3aed)" }}>
+            <Bot size={18} color="#fff" />
+          </div>
+          <h2 className="font-sora font-bold text-[19px] text-zinc-50 tracking-tight">MOCKMATE</h2>
         </Link>
 
         <nav className="hidden md:block">
-          <ul className="m-2 flex gap-2 rounded-full bg-slate-100/80 p-1 dark:bg-slate-800/60">
+          <ul className="flex gap-6">
             {navItems.map(([route, label]) => (
               <li key={route}>
                 <Link
                   href={route}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                  className={`text-sm font-medium transition-colors duration-200 ${
                     path === route
-                      ? 'bg-white text-primary shadow-sm dark:bg-slate-900'
-                      : 'text-muted-foreground hover:text-primary'
+                      ? 'text-zinc-50'
+                      : 'text-zinc-400 hover:text-zinc-100'
                   }`}
                 >
                   {label}
@@ -50,9 +47,9 @@ function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <ThemeToggle />
-          <div className="relative h-9 w-9 overflow-hidden rounded-full border border-primary/30 bg-muted">
+          <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/10 bg-zinc-900 shadow-xl">
             {userImageUrl ? (
               <Image
                 src={userImageUrl}
@@ -62,7 +59,7 @@ function Header() {
                 className="object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-foreground">
+              <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-zinc-100">
                 {user?.firstName?.[0] || "U"}
               </div>
             )}
