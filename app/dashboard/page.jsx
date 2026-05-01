@@ -24,7 +24,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Previous Interview */}
+      {/* Previous Interviews */}
       <div className="mt-16 anim-fade-up delay-2">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-zinc-50 font-sora">Recent Interviews</h2>
