@@ -13,9 +13,9 @@ function Header() {
 
   const navItems = [
     ['/dashboard', 'Dashboard'],
-    ['/dashboard/questions', 'Questions'],
-    ['/dashboard/upgrade', 'Upgrade'],
-    ['/dashboard/how', 'How it Works'],
+    ['/dashboard#questions', 'Questions'],
+    ['/dashboard#upgrade', 'Upgrade'],
+    ['/dashboard#how-it-works', 'How it Works'],
   ]
 
   return (

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
 import { LoaderCircle, Plus, Sparkles } from "lucide-react";
+import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { generateInterviewQuestions } from "@/app/actions/interviewActions";
@@ -29,6 +30,11 @@ function AddNewInterview() {
         e.preventDefault()
 
         const email = user?.primaryEmailAddress?.emailAddress;
+        if (!email) {
+          toast.error("Unable to determine your account email. Please refresh and sign in again.");
+          setLoading(false);
+          return;
+        }
         
         const response = await generateInterviewQuestions(jobPosition, jobDesc, jobExperience, email);
 

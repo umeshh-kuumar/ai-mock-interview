@@ -1,11 +1,14 @@
 import React from 'react'
 import AddNewInterview from "./_components/AddNewInterview"
 import InterviewList from "./_components/InterviewList"
+import HowItWorks from "./_components/HowItWorks"
+import Pricing from "./_components/Pricing"
 
 const Dashboard = () => {
   return (
     <div className='px-4 py-12 md:px-6 lg:px-8 max-w-7xl mx-auto'>
-      <div className="glass rounded-[32px] p-8 md:p-12 shadow-2xl relative overflow-hidden anim-fade-up">
+      <section id="questions" className="scroll-mt-24">
+        <div className="glass rounded-[32px] p-8 md:p-12 shadow-2xl relative overflow-hidden anim-fade-up">
         {/* Abstract background blobs for premium feel */}
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl anim-orb" />
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-fuchsia-600/10 rounded-full blur-3xl anim-orb-2" />
@@ -23,6 +26,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      </section>
 
       {/* Previous Interviews */}
       <div className="mt-16 anim-fade-up delay-2">
@@ -32,6 +36,14 @@ const Dashboard = () => {
         </div>
         <InterviewList />
       </div>
+
+      <section id="how-it-works" className="mt-24">
+        <HowItWorks />
+      </section>
+
+      <section id="upgrade" className="mt-24">
+        <Pricing />
+      </section>
     </div>
   )
 }
