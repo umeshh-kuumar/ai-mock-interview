@@ -19,13 +19,13 @@ function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-zinc-200 dark:border-white/[0.06] bg-white/90 dark:bg-zinc-950/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-[10px] flex items-center justify-center" style={{ background: "linear-gradient(135deg,#a78bfa,#7c3aed)" }}>
             <Bot size={18} color="#fff" />
           </div>
-          <h2 className="font-sora font-bold text-[19px] text-zinc-50 tracking-tight">MOCKMATE</h2>
+          <h2 className="font-sora font-bold text-[19px] text-zinc-900 dark:text-zinc-50 tracking-tight">MOCKMATE</h2>
         </Link>
 
         <nav className="hidden md:block">
@@ -36,8 +36,8 @@ function Header() {
                   href={route}
                   className={`text-sm font-medium transition-colors duration-200 ${
                     path === route
-                      ? 'text-zinc-50'
-                      : 'text-zinc-400 hover:text-zinc-100'
+                      ? 'text-zinc-900 dark:text-zinc-50'
+                      : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
                   }`}
                 >
                   {label}
@@ -49,7 +49,7 @@ function Header() {
 
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/10 bg-zinc-900 shadow-xl">
+          <div className="relative h-9 w-9 overflow-hidden rounded-full border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-zinc-900 shadow-xl">
             {userImageUrl ? (
               <Image
                 src={userImageUrl}
@@ -59,7 +59,7 @@ function Header() {
                 className="object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-zinc-100">
+              <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-zinc-700 dark:text-zinc-100">
                 {user?.firstName?.[0] || "U"}
               </div>
             )}

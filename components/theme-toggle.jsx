@@ -14,13 +14,16 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
+  const themeButtonClasses =
+    "h-9 w-9 rounded-full border border-input bg-background/85 text-foreground shadow-sm backdrop-blur transition hover:bg-accent/20 hover:text-accent-foreground";
+
   if (!mounted) {
     return (
       <Button
         type="button"
         variant="outline"
         size="icon"
-        className="h-9 w-9 rounded-full border-white/40 bg-white/70 backdrop-blur hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:hover:bg-slate-900"
+        className={themeButtonClasses}
         aria-label="Toggle theme"
         title="Toggle theme"
       >
@@ -34,7 +37,7 @@ export default function ThemeToggle() {
       type="button"
       variant="outline"
       size="icon"
-      className="h-9 w-9 rounded-full border-white/40 bg-white/70 backdrop-blur hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:hover:bg-slate-900"
+      className={themeButtonClasses}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       title={`Switch to ${isDark ? "light" : "dark"} mode`}

@@ -34,14 +34,14 @@ function InterviewList() {
   return (
     <div>
         <div className="flex items-center gap-3 mb-8">
-            <h2 className='font-bold text-2xl text-zinc-100 font-sora'>Previous Sessions</h2>
-            <div className="h-px flex-1 bg-white/[0.06]" />
+            <h2 className='font-bold text-2xl text-zinc-900 dark:text-zinc-100 font-sora'>Previous Sessions</h2>
+            <div className="h-px flex-1 bg-zinc-200 dark:bg-white/[0.06]" />
         </div>
 
         {loading ? (
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {[1,2,3].map((i) => (
-                    <div key={i} className='h-[160px] rounded-[24px] bg-white/5 animate-pulse border border-white/5' />
+                    <div key={i} className='h-[160px] rounded-[24px] bg-zinc-200 dark:bg-white/5 animate-pulse border border-zinc-300 dark:border-white/5' />
                 ))}
             </div>
         ) : interviewList?.length > 0 ? (
@@ -54,8 +54,8 @@ function InterviewList() {
                 ))}
             </div>
         ) : (
-            <div className="glass rounded-[32px] p-12 text-center border-white/5 bg-white/[0.02]">
-                <p className="text-zinc-500 font-dm italic">No interview sessions found. Start a new one above.</p>
+            <div className="rounded-[32px] p-12 text-center border border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-white/[0.02]">
+                <p className="text-zinc-400 dark:text-zinc-500 font-dm italic">No interview sessions found. Start a new one above.</p>
             </div>
         )}
     </div>

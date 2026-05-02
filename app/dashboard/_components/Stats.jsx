@@ -7,11 +7,11 @@ export default function Stats() {
   ];
 
   return (
-    <div className="border-y border-white/[0.06] py-10 bg-white/[0.02]">
+    <div className="border-y border-zinc-200 dark:border-white/[0.06] py-10 bg-zinc-50/50 dark:bg-white/[0.02]">
       <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
         {items.map(({ num, label }) => (
           <div key={label} className="text-center">
-            <div className="font-sora font-extrabold text-[36px] text-zinc-50 leading-none">{num}</div>
+            <div className="font-sora font-extrabold text-[36px] text-zinc-900 dark:text-zinc-50 leading-none">{num}</div>
             <div className="text-sm text-zinc-500 mt-1.5">{label}</div>
           </div>
         ))}

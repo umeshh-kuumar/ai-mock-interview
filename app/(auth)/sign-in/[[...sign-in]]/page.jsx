@@ -3,6 +3,7 @@
 import { SignIn, useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import ThemeToggle from "/components/theme-toggle"
 
 export default function SignInPage() {
   const { isSignedIn } = useUser()
@@ -17,7 +18,10 @@ export default function SignInPage() {
   if (isSignedIn) return null
 
   return (
-    <section className="bg-white dark:bg-slate-950">
+    <section className="min-h-screen bg-background">
+      <div className="fixed right-6 top-6 z-50">
+        <ThemeToggle />
+      </div>
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img

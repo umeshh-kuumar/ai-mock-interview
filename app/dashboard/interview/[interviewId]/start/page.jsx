@@ -41,13 +41,10 @@ function StartInterview({params}) {
   return (
     <div className="max-w-7xl mx-auto py-10 px-6 lg:px-8 anim-fade-up">
       <div className='grid grid-cols-1 gap-12 lg:grid-cols-2'>
-        {/* Questions Section */}
         <QuestionsSection 
           mockInterviewQuestion={mockInterviewQuestion}
           activeQuestionIndex={activeQuestionIndex}
         />
-
-        {/* Video/ Audio Recording */}
         <RecordAnswerSection
           mockInterviewQuestion={mockInterviewQuestion}
           activeQuestionIndex={activeQuestionIndex}
@@ -55,13 +52,13 @@ function StartInterview({params}) {
         />
       </div>
 
-      <div className='flex items-center justify-between mt-12 pt-8 border-t border-white/[0.06]'>
+      <div className='flex items-center justify-between mt-12 pt-8 border-t border-zinc-200 dark:border-white/[0.06]'>
         <div className="flex gap-4">
           {activeQuestionIndex > 0 && (
             <Button 
               variant="outline" 
               onClick={() => setActiveQuestionIndex(activeQuestionIndex - 1)}
-              className="rounded-xl border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-zinc-100 h-12 px-6 transition-all"
+              className="rounded-xl border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white/5 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-white/10 hover:text-zinc-900 dark:hover:text-zinc-100 h-12 px-6 transition-all"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Previous
@@ -73,7 +70,7 @@ function StartInterview({params}) {
           {activeQuestionIndex != mockInterviewQuestion?.length - 1 ? (
             <Button 
               onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
-              className="rounded-xl h-12 px-8 font-bold transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="rounded-xl h-12 px-8 font-bold transition-all hover:scale-[1.02] active:scale-[0.98] text-white"
               style={{ background: "linear-gradient(135deg,#a78bfa 0%,#7c3aed 100%)", boxShadow: "0 8px 20px rgba(124,58,237,0.3)" }}
             >
               Next Question

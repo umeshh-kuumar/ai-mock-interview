@@ -11,20 +11,20 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[60px] items-center">
           <div className="flex flex-col gap-7">
             <div className="anim-fade-up delay-1">
-              <span className="anim-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-medium text-violet-300 border border-violet-400/30"
+              <span className="anim-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-medium text-violet-600 dark:text-violet-300 border border-violet-300 dark:border-violet-400/30"
                 style={{ background: "rgba(167,139,250,0.12)" }}>
                 <span className="w-[7px] h-[7px] rounded-full bg-violet-400 flex-shrink-0" />
                 AI-Powered Interview Coach
               </span>
             </div>
 
-            <h1 className="anim-fade-up delay-2 font-sora font-extrabold leading-[1.08] tracking-[-0.03em] text-zinc-50" style={{ fontSize: "clamp(42px,6vw,72px)" }}>
+            <h1 className="anim-fade-up delay-2 font-sora font-extrabold leading-[1.08] tracking-[-0.03em] text-zinc-900 dark:text-zinc-50" style={{ fontSize: "clamp(42px,6vw,72px)" }}>
               Ace your next<br />
-              <span className="text-violet-400">interview</span> with<br />
-              <span className="text-emerald-400">AI practice</span>
+              <span className="text-violet-500 dark:text-violet-400">interview</span> with<br />
+              <span className="text-emerald-500 dark:text-emerald-400">AI practice</span>
             </h1>
 
-            <p className="anim-fade-up delay-3 text-zinc-400 leading-[1.65] max-w-[480px]" style={{ fontSize: "clamp(16px,2vw,19px)" }}>
+            <p className="anim-fade-up delay-3 text-zinc-500 dark:text-zinc-400 leading-[1.65] max-w-[480px]" style={{ fontSize: "clamp(16px,2vw,19px)" }}>
               Simulate real interviews, get instant AI feedback, and track your improvement — all before your actual interview day.
             </p>
 
@@ -33,7 +33,10 @@ export default function HeroSection() {
                 style={{ background: "linear-gradient(135deg,#a78bfa 0%,#7c3aed 100%)", boxShadow: "0 8px 32px rgba(124,58,237,0.35)" }}>
                 Start for Free <ArrowRight size={16} />
               </Link>
-              <a href="https://youtu.be" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-medium text-zinc-200 border border-white/[0.12] bg-white/[0.06] hover:bg-white/[0.10] transition-all hover:-translate-y-0.5">
+              <Link href="#upgrade" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold text-zinc-800 dark:text-white border border-zinc-300 dark:border-white/[0.12] bg-zinc-100 dark:bg-white/[0.08] hover:bg-zinc-200 dark:hover:bg-white/[0.16] transition-all hover:-translate-y-0.5">
+                Explore Plans
+              </Link>
+              <a href="https://youtu.be" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-medium text-zinc-600 dark:text-zinc-200 border border-zinc-300 dark:border-white/[0.12] bg-zinc-100/80 dark:bg-white/[0.06] hover:bg-zinc-200 dark:hover:bg-white/[0.10] transition-all hover:-translate-y-0.5">
                 <Play size={15} /> Watch Demo
               </a>
             </div>
@@ -41,7 +44,7 @@ export default function HeroSection() {
             <div className="anim-fade-up delay-5 flex gap-5 pt-2">
               {[['10k+', 'Users trained'], ['94%', 'Offer rate'], ['Free', 'To start']].map(([value, label]) => (
                 <div key={label}>
-                  <div className="font-sora font-extrabold text-xl text-zinc-50">{value}</div>
+                  <div className="font-sora font-extrabold text-xl text-zinc-900 dark:text-zinc-50">{value}</div>
                   <div className="text-[13px] text-zinc-500 mt-0.5">{label}</div>
                 </div>
               ))}

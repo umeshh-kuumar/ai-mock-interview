@@ -22,6 +22,16 @@ const FAQS = [
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
+  const [dark, setDark] = useState(true);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, [dark]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -31,7 +41,7 @@ export default function LandingPage() {
 
   return (
     <div className="overflow-x-hidden">
-      <Nav scrolled={scrolled} />
+      <Nav scrolled={scrolled} dark={dark} toggleDark={() => setDark(p => !p)} />
       <HeroSection />
       <Stats />
       <HowItWorks />
@@ -44,4 +54,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
