@@ -38,13 +38,9 @@ export default function SignInPage() {
         </section>
 
         <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-          <div className="w-full max-w-xl rounded-2xl border border-white/30 bg-white/90 p-6 shadow-xl backdrop-blur dark:border-slate-800 dark:bg-slate-950/90 md:p-8">
-            <h1 className="text-2xl font-bold text-foreground sm:text-3xl">Sign in to continue</h1>
-            <p className="mt-2 leading-relaxed text-muted-foreground">
-              Pick up your interview practice where you left off.
-            </p>
+  
             <SignIn />
-          </div>
+          
         </main>
       </div>
     </section>
